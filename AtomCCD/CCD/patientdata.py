@@ -13,6 +13,7 @@ class Demographics:
           """Return patient's given and family names
              Keys to use : 'given' for first name
                          : 'family' for last name'
+                         : 'prefix' for title'
              
 
           """
@@ -21,7 +22,7 @@ class Demographics:
       def address(self):
           
         """Return patient's address
-             Keys to use : 'city','state','street', 'country'       
+             Keys to use : 'city','state','street', 'country', zip       
 
         """
         return self.demo_data.get('address','address not found')
