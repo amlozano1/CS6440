@@ -35,7 +35,7 @@ TEMPLATE_DIRS = (
 
 # Static asset configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'static', 'static_root'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'static_root')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
