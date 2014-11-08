@@ -14,5 +14,8 @@ class Patient(models.Model):
     user = models.ForeignKey(User)
     chart = models.FileField()
 
+    def __str__(self):
+        return self.user.username
+
 class Physician(models.Model):
     patients = models.ManyToManyField(Patient)

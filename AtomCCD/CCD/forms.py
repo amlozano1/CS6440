@@ -10,7 +10,7 @@ import logging
 class new_patient_form(forms.Form):
 
     ccd_file = forms.FileField()
-    pref_email = forms.EmailField()
+    Email = forms.EmailField()
 
     def add_patient(self, ccd_file, pref_email):
         #Because of a chicken-egg problem, we need to write the CCDA to disk then have bluebutton parse it before we can
@@ -25,3 +25,6 @@ class new_patient_form(forms.Form):
         new_user.save()
         new_patient = Patient(user=new_user, chart=ccd_file)
         new_patient.save()
+
+class PatientForm(forms.Form):
+    patient = forms.ModelChoiceField(queryset=Patient.objects.all().order_by('user'), to_field_name="user", empty_label=None)

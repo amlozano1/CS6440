@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dummy Dashboard Page</title>
+</head>
+<body>
+This is the dashboard, {{ user.get_username }}! It sucks right now.
+
+<form enctype="multipart/form-data" action="/CCD/dashboard/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
+</body>
+</html>
