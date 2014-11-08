@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'AtomCCD.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^CCD/', include('CCD.urls')),
+    url(r'^CCD/', include('CCD.urls', namespace='CCD')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/login/', login),
     )

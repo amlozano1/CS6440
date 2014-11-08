@@ -60,3 +60,8 @@ staticfiles
 
 #local settings for development on local machine
 local_settings.py
+AtomCCD/static/media/MarlasCCD.xml
+AtomCCD/static/media/MarlasCCD_oYzjRYO.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/workspace.xml
