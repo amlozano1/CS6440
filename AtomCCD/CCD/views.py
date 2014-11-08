@@ -5,7 +5,9 @@ from django.views.generic.edit import FormView
 from forms import new_patient_form, PatientForm
 from models import Patient
 from django.contrib.auth.decorators import login_required
-
+from ccdaparser import parse_ccda
+from django.conf import settings
+import os
 # Create your views here.
 
 def index(request):
@@ -33,10 +35,18 @@ def login(request):
 
 @login_required
 def dashboard(request):
+    print settings.TEMPLATE_CONTEXT_PROCESSORS
     if request.method == "POST":
         form = PatientForm(request.POST)
-        if form.is_valid:
-            pass # TODO Redirect to CCD viewr
+        if form.is_valid():
+            json_chart = parse_ccda(form.cleaned_data['patient'].chart.file.name)
+            request.session['CurrentPatient'] = json_chart
+            errors = form.errors or None # form not submitted or it has errors
+            return render(request, 'CCD/dashboard.html', {'form': form, 'errors': errors, })
     form = PatientForm()
     errors = form.errors or None # form not submitted or it has errors
     return render(request, 'CCD/dashboard.html',{'form': form, 'errors': errors, })
+
+@login_required()
+def view_CCD(request):
+    pass
