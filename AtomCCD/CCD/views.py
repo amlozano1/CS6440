@@ -22,7 +22,7 @@ def new_patient(request):
     if request.method == 'POST':
         form = new_patient_form(request.POST, request.FILES)
         if form.is_valid():
-            form.add_patient(request.FILES['ccd_file'])
+            form.add_patient(request.FILES['ccd_file'], form.cleaned_data['pref_email'])
         else:
             raise Exception("shit!")
         return HttpResponseRedirect('added/')
