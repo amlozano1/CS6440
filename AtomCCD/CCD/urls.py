@@ -5,4 +5,6 @@ from CCD import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
+    url(r'^new_patient/added/', views.added, name='added'),
+    url(r'^new_patient/', views.new_patient, name='new_patient'),
 )

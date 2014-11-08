@@ -8,22 +8,19 @@ Also npm and node must be installed before running this script
 
 """
 
-# This code was lifted from www.bluebuttonjs.com
-path_to_file = '/bluebutton/healthcare/ccdoc.xml'
-cmd_list = ['node', 'parseClinicalXml.js', path_to_file]
+def parse_ccda(path_to_file):
+    cmd_list = ['node', 'CCD/parseClinicalXml.js', path_to_file]
 
-p = subprocess.Popen(cmd_list, stdout=subprocess.PIPE,
-    stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-result, error = p.communicate()
-p.stdin.close()
+    p = subprocess.Popen(cmd_list, stdout=subprocess.PIPE,
+        stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+    result, error = p.communicate()
+    p.stdin.close()
 
-if p.returncode != 0:
-    print error
-    raise ValueError("Failed to parse clinical XML at %s" % \
-        path_to_file)
+    if p.returncode != 0:
+        print error
+        raise ValueError("Failed to parse clinical XML at %s" % \
+            path_to_file)
 
-
-
-
-json_data = json.loads(result)
+    json_data = json.loads(result)
+    return json_data
 
