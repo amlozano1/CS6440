@@ -14,10 +14,34 @@ This is the dashboard, {{ user.get_username }}.
 <!-- All this stuff should go in another template somewhere so it can be re-used etc !-->
 {% if request.session.CurrentPatient %}
 
-<div class="well">
-	Demographics <br>
-		First Name: {{ request.session.CurrentPatient.demographics.name.given.0 }} <br>
-		Surname : {{ request.session.CurrentPatient.demographics.name.family }}
+<div class="panel-group" id="accordion">
+	<div class="panel panel-default">
+	    <div class="panel-heading">
+	        <h4 class="panel-title">
+	            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Demographics</a>
+	        </h4>
+	    </div>
+	    <div id="collapseOne" class="panel-collapse collapse in">
+	        <div class="panel-body">
+	            First Name: 
+	            {{ request.session.CurrentPatient.demographics.name.given.0 }} <br>
+				Surname: 
+				{{ request.session.CurrentPatient.demographics.name.family }}
+	        </div>
+	    </div>
+	</div>
+	<div class="panel panel-default">
+	    <div class="panel-heading">
+	        <h4 class="panel-title">
+	            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Vitals</a>
+	        </h4>
+	    </div>
+	    <div id="collapseTwo" class="panel-collapse collapse">
+	        <div class="panel-body">
+	            Add interactive display for vitals
+	        </div>
+	    </div>
+	</div>
 </div>
 
 {% else %}
