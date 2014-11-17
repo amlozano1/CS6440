@@ -18,10 +18,33 @@ This is the dashboard, {{ user.get_username }}.
 	<div class="panel panel-default">
 	    <div class="panel-heading">
 	        <h4 class="panel-title">
-	            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Demographics</a>
+	            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Documentation</a>
 	        </h4>
 	    </div>
-	    <div id="collapseOne" class="panel-collapse collapse in">
+	    <div id="collapseOne" class="panel-collapse collapse">
+	        <div class="panel-body">
+	            Date: <br>
+	            Provider: <br>
+	            Function Code: <br>
+	            Address: <br>
+	            City: <br>
+	            State: <br>
+	            Country: <br>
+	            Zip: <br>
+	            Phone: <br>
+	            Prefix: <br>
+	            First Name: <br>
+	            Last Name: <br>
+	        </div>
+	    </div>
+	</div>
+	<div class="panel panel-default">
+	    <div class="panel-heading">
+	        <h4 class="panel-title">
+	            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Demographics</a>
+	        </h4>
+	    </div>
+	    <div id="collapseTwo" class="panel-collapse collapse">
 	        <div class="panel-body">
 	            First Name: 
 	            {{ request.session.CurrentPatient.demographics.name.given.0 }} <br>
@@ -46,10 +69,10 @@ This is the dashboard, {{ user.get_username }}.
 	<div class="panel panel-default">
 	    <div class="panel-heading">
 	        <h4 class="panel-title">
-	            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Vitals</a>
+	            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Vitals</a>
 	        </h4>
 	    </div>
-	    <div id="collapseTwo" class="panel-collapse collapse">
+	    <div id="collapseThree" class="panel-collapse collapse">
 	        <div class="panel-body">
 	            Add interactive display for vitals
 	        </div>
