@@ -41,11 +41,16 @@ def dashboard(request):
         if form.is_valid():
             json_chart = parse_ccda(form.cleaned_data['patient'].chart.file.name)
             request.session['CurrentPatient'] = json_chart
+            request.session['CurrentPatientXml'] = open(form.cleaned_data['patient'].chart.file.name).read()
             errors = form.errors or None # form not submitted or it has errors
             return render(request, 'CCD/dashboard.html', {'form': form, 'errors': errors, })
     form = PatientForm()
     errors = form.errors or None # form not submitted or it has errors
     return render(request, 'CCD/dashboard.html',{'form': form, 'errors': errors, })
+
+@login_required()
+def bbhr(request):
+    return render(request, 'CCD/BBHR.html')
 
 @login_required()
 def view_CCD(request):
