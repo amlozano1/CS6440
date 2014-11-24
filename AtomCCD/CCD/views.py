@@ -7,6 +7,9 @@ from models import Patient
 from django.contrib.auth.decorators import login_required
 from ccdaparser import parse_ccda
 from django.conf import settings
+import xml.etree.ElementTree as ET
+from xml.etree.ElementTree import tostring
+
 import os
 # Create your views here.
 
@@ -42,6 +45,9 @@ def dashboard(request):
             json_chart = parse_ccda(form.cleaned_data['patient'].chart.file.name)
             request.session['CurrentPatient'] = json_chart
             request.session['CurrentPatientXml'] = open(form.cleaned_data['patient'].chart.file.name).read()
+            xml_root = remove_namespaces(request.session['CurrentPatientXml'])
+
+            request.session['CurrentPatientTables'] = get_tables(xml_root)
             errors = form.errors or None # form not submitted or it has errors
             return render(request, 'CCD/dashboard.html', {'form': form, 'errors': errors, })
     form = PatientForm()
@@ -55,3 +61,19 @@ def bbhr(request):
 @login_required()
 def view_CCD(request):
     pass
+
+
+def get_tables(xml_root):
+    return [tostring(table) for table in xml_root.iter('table')]
+
+def remove_namespaces(xml):
+    """
+    Returns a xml root, but strips out any namespaces from the tags.
+    :type xml: xml to strip namespace from
+    """
+    from StringIO import StringIO
+    it = ET.iterparse(StringIO(xml))
+    for _, el in it:
+        if '}' in el.tag:
+            el.tag = el.tag.split('}', 1)[1]  # strip all namespaces
+    return it.root

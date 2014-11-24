@@ -1,4 +1,4 @@
-{% verbatim bbhr %}
+{% autoescape off %}{% verbatim bbhr %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" ng-app> <![endif]-->
@@ -345,6 +345,7 @@ $(function(){$("#loader").fadeIn(function(){text=$.text($("script#xmlBBData"));b
                     {% if loop.last %}</ul>{% endif %}
                 {% endfor %}
             </div>
+
         </section>
         <div id="loader">
             <div id="warningGradientOuterBarG">
@@ -362,8 +363,10 @@ $(function(){$("#loader").fadeIn(function(){text=$.text($("script#xmlBBData"));b
     </body>
 </html>
 <script style="display: none;" id="xmlBBData" type="text/plain">
-{% endverbatim bbhr%}{% autoescape off %}
-{{ request.session.CurrentPatientXml }}{% endautoescape %}{% verbatim %}
+{% endverbatim bbhr%}
+{{ request.session.CurrentPatientXml }}
+{% endautoescape %}
 </script>
+
 </body></html>
-{% endverbatim %}
+
