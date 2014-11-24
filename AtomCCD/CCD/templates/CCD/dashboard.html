@@ -46,13 +46,15 @@ This is the dashboard, {{ user.get_username }}.
 	    </div>
 	    <div id="collapseTwo" class="panel-collapse collapse">
 	        <div class="panel-body">
+	        	Test: {{ request.session.CurrentPatient.demographics }} <br>
 	            First Name: 
 	            {{ request.session.CurrentPatient.demographics.name.given.0 }} <br>
-	            Middle: <br>
+	            Middle: Do not see<br>
 				Surname: 
 				{{ request.session.CurrentPatient.demographics.name.family }} <br>
-				Preferred Language: <br>
-				Gender: <i class="fa fa-female"></i><br>
+				Preferred Language: Do not see<br>
+				<!-- <i class="fa fa-female"></i><br> -->
+				Gender: <i class="fa fa-{{ request.session.CurrentPatient.demographics.gender }}"></i><br>
 				Race: <br>
 				Ethnicity: <br>
 				Date of Birth <br>
