@@ -60,7 +60,7 @@ def bbhr(request):
 
 @login_required()
 def view_CCD(request):
-    pass
+    return render(request, 'CCD/patient_summary.html')
 
 
 def get_tables(xml_root):
