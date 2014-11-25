@@ -8,4 +8,6 @@ urlpatterns = patterns('',
     url(r'^new_patient/added/', views.added, name='added'),
     url(r'^new_patient/', views.new_patient, name='new_patient'),
     url(r'^dashboard/', views.dashboard, name='dashboard'),
+    url(r'^bbhr/', views.bbhr, name='bbhr'),
+    url(r'^view_CCD', views.view_CCD, name='view_CCD')
 )

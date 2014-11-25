@@ -4,21 +4,24 @@
     <title>Dummy Dashboard Page</title>
 </head>
 <body>
-This is the dashboard, {{ user.get_username }}! It sucks right now.
+
+
+
+<!-- All this stuff should go in another template somewhere so it can be re-used etc !-->
+{% if request.session.CurrentPatient %}
+<!--The patient is {{ request.session.CurrentPatient.demographics.name.given.0 }} {{ request.session.CurrentPatient.demographics.name.family }} <br> !-->
+<!-- All Data: <br><br>{{ request.session.CurrentPatient}} !-->
+<div class="basic">
+{% include 'CCD/BBHR.html' %}
+</div>
+{% else %}
+This is the dashboard, {{ user.get_username }}.
 
 <form enctype="multipart/form-data" action="/CCD/dashboard/" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit" />
 </form>
-
-
-<!-- All this stuff should go in another template somewhere so it can be re-used etc !-->
-{% if request.session.CurrentPatient %}
-The patient is {{ request.session.CurrentPatient.demographics.name.given.0 }} {{ request.session.CurrentPatient.demographics.name.family }} <br>
-All Data: <br><br>{{ request.session.CurrentPatient}}
-{% else %}
-No current patient
 {% endif %}
 </body>
 </html>
