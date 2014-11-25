@@ -11,6 +11,16 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       {% if user.is_authenticated %}
+      <div id="navbar-welcome" class="navbar-text navbar-left">
+       <form enctype="multipart/form-data" action="/CCD/view_CCD/" class="navbar-form navbar-left" role="form" method="post">
+         {% csrf_token %}
+          <div class="form-group">
+            {{ form }}
+           </div>
+         <div class="form-group">
+          <input type="submit" value="Submit" class="btn btn-success"/>
+         </div>
+      </div>
       <div id="navbar-welcome" class="navbar-text navbar-right"> Welcome, {{ user.username }}.  <a href="/accounts/logout">logout</a> </div>
 
       {% else %}

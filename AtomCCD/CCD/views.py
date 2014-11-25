@@ -38,7 +38,6 @@ def login(request):
 
 @login_required
 def dashboard(request):
-    print settings.TEMPLATE_CONTEXT_PROCESSORS
     if request.method == "POST":
         form = PatientForm(request.POST)
         if form.is_valid():
@@ -60,7 +59,19 @@ def bbhr(request):
 
 @login_required()
 def view_CCD(request):
-    return render(request, 'CCD/patient_summary.html')
+    if request.method == "POST":
+        form = PatientForm(request.POST)
+        if form.is_valid():
+            json_chart = parse_ccda(form.cleaned_data['patient'].chart.file.name)
+            request.session['CurrentPatient'] = json_chart
+            request.session['CurrentPatientXml'] = open(form.cleaned_data['patient'].chart.file.name).read()
+            xml_root = remove_namespaces(request.session['CurrentPatientXml'])
+            request.session['CurrentPatientTables'] = get_tables(xml_root)
+            errors = form.errors or None # form not submitted or it has errors
+            return render(request, 'CCD/patient_summary.html', {'form': form, 'errors': errors, })
+    form = PatientForm()
+    errors = form.errors or None # form not submitted or it has errors
+    return render(request, 'CCD/patient_summary.html',{'form': form, 'errors': errors, })
 
 
 def get_tables(xml_root):
