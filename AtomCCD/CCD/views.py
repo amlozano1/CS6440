@@ -75,7 +75,12 @@ def view_CCD(request):
 
 
 def get_tables(xml_root):
-    return [tostring(table) for table in xml_root.iter('table')]
+    """
+    finds all the tables and their section titles for a CCD
+    :param xml_root:
+    :return:
+    """
+    return{section.find("code").attrib['displayName'] : list(section.iter("table")) for section in z.iter("section") if list(section.iter("table"))}
 
 def remove_namespaces(xml):
     """
