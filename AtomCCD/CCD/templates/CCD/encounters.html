@@ -1,0 +1,35 @@
+{% load ccd_extras %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEnc">Medical Encounters</a>
+	</div>
+	<div id="collapseEnc" class="accordion-body collapse panel-body">
+		<div class="accordion-inner">
+            {% for enc in request.session.CurrentPatient.encounters %}
+                <div style="background-color: {% cycle '#c5c5c5' '#F0F0F0' %}">
+                    <strong> {{ enc.name }} </strong> <br>
+                    {% for finding in enc.findings %}
+                        {% if forloop.first %}
+                            Findings:
+                        {% endif %}
+                        {{ finding.name }},
+                        {% empty %}
+                            No Findings.
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseEncDetail">Detail Table</a>
+                </div>
+            </div>
+            <div id="collapseEncDetail" class="accordion-body collapse panel-body">
+		        <div class="accordion-inner">
+                    {% autoescape off %}
+                        {{ request.session.CurrentPatientTables.Encounters }}
+                    {% endautoescape %}
+                </div>
+        </div>
+    </div>
+</div>
