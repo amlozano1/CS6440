@@ -1,14 +1,15 @@
+{% load ccd_extras %}
 <div class="panel panel-default">
 	<div class="panel-heading">
 	    <h4 class="panel-title">
-	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Demographics</a>
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Full Demographics</a>
 	    </h4>
 	</div>
-	<div id="collapseTwo" class="panel-collapse collapse">
+	<div id="collapseOne" class="panel-collapse collapse">
 	    <div class="panel-body">
-	    	First Name: {{ request.session.CurrentPatient.demographics.name.given.0 }} <br>
-	        Middle: {{ middle }} <br>
-			Surname: 
+			First Name: {{ request.session.CurrentPatient.demographics.name.given.0 }} <br>
+			Middle: {{ request.session.middle }} <br>
+			Surname:
 			{{ request.session.CurrentPatient.demographics.name.family }} <br>
 			Preferred Language: {{ request.session.CurrentPatient.demographics.language }}<br>
 			Gender: <i class="fa fa-{{ request.session.CurrentPatient.demographics.gender }}"></i><br>
@@ -22,6 +23,6 @@
 			Zip: {{ request.session.CurrentPatient.demographics.address.zip }}<br>
 			Phone: {{ request.session.CurrentPatient.demographics.phone.home }}<br>
 			Email: {{ request.session.CurrentPatient.demographics.email }}<br>
-	    </div>
-	</div>
+        </div>
+    </div>
 </div>

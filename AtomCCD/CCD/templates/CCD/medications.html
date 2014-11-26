@@ -1,6 +1,8 @@
+<div>
 {% for med in request.session.CurrentPatient.medications %}
     <div style="background-color: {% cycle '#c5c5c5' '#F0F0F0' %}">
         {{ med.date_range.start }} - {{ med.date_range.end }} <br>
         {{ med.text }}
     </div>
 {% endfor %}
+</div>
