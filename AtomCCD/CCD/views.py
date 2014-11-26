@@ -9,8 +9,20 @@ from ccdaparser import parse_ccda
 from django.conf import settings
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import tostring
-
 import os
+
+
+codes = {
+    "48765-2": "allergies_reactions_alerts",
+    "46240-8": "encounter_history",
+    "10160-0": "medication_history",
+    "11450-4": "problem_list",
+    "47519-4": "procedures",
+    "30954-2": "results",
+    "29762-2": "social_history"
+
+}
+
 # Create your views here.
 
 def index(request):
@@ -80,7 +92,7 @@ def get_tables(xml_root):
     :param xml_root:
     :return:
     """
-    return{section.find("code").attrib['displayName'] : list(section.iter("table")) for section in z.iter("section") if list(section.iter("table"))}
+    return {codes[section.find("code").attrib['code']]: tostring(section.iter("table").next()) for section in xml_root.iter("section") if list(section.iter("table")) and section.find("code")}
 
 def remove_namespaces(xml):
     """

@@ -224,6 +224,9 @@ $(function(){$("#loader").fadeIn(function(){text=$.text($("script#xmlBBData"));b
                 {% else %}
                     <p>No known allergies</p>
                 {% endfor %}
+                 {% endverbatim bbhr %}
+                            {{request.session.CurrentPatientTables.allergies_reactions_alerts}}
+                {% verbatim bbhr %}
             </div>
             <div id="medications" class="panel">
                 <h1>Medication History</h1>
@@ -255,6 +258,9 @@ $(function(){$("#loader").fadeIn(function(){text=$.text($("script#xmlBBData"));b
                 {% else %}
                     <p>No known medications</p>
                 {% endfor %}
+                {% endverbatim bbhr %}
+                            {{request.session.CurrentPatientTables.medication_history}}
+                {% verbatim bbhr %}
             </div>
             <div id="immunizations" class="panel">
                 <h1>Immunizations</h1>
@@ -315,6 +321,10 @@ $(function(){$("#loader").fadeIn(function(){text=$.text($("script#xmlBBData"));b
                 {% else %}
                     <p>No known past encounters</p>
                 {% endfor %}
+                {% endverbatim bbhr %}
+                            {{request.session.CurrentPatientTables.encounter_history}}
+                {% verbatim bbhr %}
+
             </div>
             <div id="labs" class="panel">
                 <h1>Lab Results</h1>

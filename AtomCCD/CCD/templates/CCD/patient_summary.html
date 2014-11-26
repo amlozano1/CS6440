@@ -32,9 +32,16 @@
     {% include 'navbar.html' %}
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>Patient Summary</title>
+
+
 </head>
 <body>
-
+  {% for key, value in request.session.CurrentPatientTables.items %}
+    {{ key }}
+      {% for v in values.0 %}
+      {{ v }}
+      {% endfor %}
+  {% endfor %}
 </body>
 </html>
