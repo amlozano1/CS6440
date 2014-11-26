@@ -1,6 +1,17 @@
-{% for med in request.session.CurrentPatient.medications %}
-    <div style="background-color: {% cycle '#c5c5c5' '#F0F0F0' %}">
-        {{ med.date_range.start }} - {{ med.date_range.end }} <br>
-        {{ med.text }}
+{% load ccd_extras %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseMed">Medications</a>
+	</div>
+	<div id="collapseMed" class="accordion-body collapse panel-body">
+		<div class="accordion-inner">
+            {% for med in request.session.CurrentPatient.medications %}
+                <div style="background-color: {% cycle '#c5c5c5' '#F0F0F0' %}">
+                    <strong> {{ med.product.name }} </strong> <br>
+                    {{ med.date_range.start }} {% ifnotequal med.date_range.end None %} - {{ med.date_range.end }} {% endifnotequal %}<br>
+                    {{ med.text }} <br>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-{% endfor %}
+</div>

@@ -38,6 +38,7 @@ codes = {
 def index(request):
     return render(request, 'CCD/index.html', {})
 
+@login_required()
 def new_patient(request):
     if request.method == 'POST':
         form = new_patient_form(request.POST, request.FILES)
@@ -89,12 +90,16 @@ def view_CCD(request):
             request.session['CurrentPatientXml'] = open(form.cleaned_data['patient'].chart.file.name).read()
             xml_root = remove_namespaces(request.session['CurrentPatientXml'])
             request.session['CurrentPatientTables'] = get_tables(xml_root)
+            suffix_tag = xml_root.find("recordTarget").find("patientRole").find("patient").find('name').find("suffix")
+            if suffix_tag:
+                request.session['middle'] = xml_root.find("recordTarget").find("patientRole").find("patient").find('name').find("suffix").text
+            elif 'middle' in request.session:
+                del request.session['middle']
             errors = form.errors or None # form not submitted or it has errors
-            return render(request, 'CCD/patient_summary.html', {'form': form, 'errors': errors, })
+            return render(request, 'CCD/patient_summary.html', {'form': form, 'errors': errors})
     form = PatientForm()
     errors = form.errors or None # form not submitted or it has errors
-    middle = xml_root.find("recordTarget").find("patientRole").find("patient").find("suffix").text
-    return render(request, 'CCD/patient_summary.html',{'form': form, 'errors': errors, 'middle': middle })
+    return render(request, 'CCD/patient_summary.html', {'form': form, 'errors': errors})
 
 
 def get_tables(xml_root):
@@ -103,7 +108,14 @@ def get_tables(xml_root):
     :param xml_root:
     :return:
     """
-    return {codes[section.find("code").attrib['code']]: tostring(section.iter("table").next()) for section in xml_root.iter("section") if list(section.iter("table"))}
+    tables = {}
+    for section in xml_root.iter("section"):
+        if list(section.iter("table")):
+            if section.find("code"):
+                tables[codes[section.find("code").attrib['code']]] = tostring(section.iter("table").next())
+            else:
+                tables[section.find("title").text] = tostring(section.iter("table").next())
+    return tables
 
 def remove_namespaces(xml):
     """
