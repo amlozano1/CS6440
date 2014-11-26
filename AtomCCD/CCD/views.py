@@ -45,6 +45,7 @@ def dashboard(request):
             return render(request, 'CCD/dashboard.html', {'form': form, 'errors': errors, })
     form = PatientForm()
     errors = form.errors or None # form not submitted or it has errors
+    #middle = xml_root.find("recordTarget").find("patientRole").find("patient").find("suffix").text
     return render(request, 'CCD/dashboard.html',{'form': form, 'errors': errors, })
 
 @login_required()
