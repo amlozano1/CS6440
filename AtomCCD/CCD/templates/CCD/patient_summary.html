@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 {% load staticfiles %}
-
+{% load ccd_extras %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>AtomCCD</title>
+    <title>Patient Summary</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -27,14 +27,31 @@
     <![endif]-->
   </head>
 
-  <body>
 <!-- Navigation bar -->
     {% include 'navbar.html' %}
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
 <body>
+<br><br><br><br><br>
+<div class="container">
 
+  <div id="demographics" class="panel">
+      <div style="float: left; width: 33%;">
+          {{ request.session.CurrentPatient.demographics.name.given.0 }} {{ request.session.CurrentPatient.demographics.name.family }} <br>
+          Age: {{ request.session.CurrentPatient.demographics.dob|dob_to_age }} <br>
+          Born: {{ request.session.CurrentPatient.demographics.dob }} <br></div>
+      <div style="float: left; width: 33%;"> Address</div>
+      <div style="float: right; width: 33%;"> <P align="center">Emergency Contact</P></div>
+  </div>
+<br><br><br>
+{% include 'CCD\medications.html' %}
+<br><br><br>{{ request.session.CurrentPatient.demographics}}<br><br>
+{{ request.session.CurrentPatient.problems }}<br><br>
+{% autoescape off %}
+  {% for key, value in request.session.CurrentPatientTables.items %}
+    {{ key }} <br>
+    {{ value }} <br>
+  {% endfor %}
+{% endautoescape %}
+
+ </div>
 </body>
 </html>
