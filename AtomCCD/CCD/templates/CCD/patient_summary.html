@@ -37,12 +37,13 @@
 
 </head>
 <body>
+<br><br><br><br><br>
+{% autoescape off %}
   {% for key, value in request.session.CurrentPatientTables.items %}
-    {{ key }}
-      {% for v in values %}
-      {{ v }}
-      {% endfor %}
+    {{ key }} <br>
+    {{ value }} <br>
   {% endfor %}
   {{ request.session.CurrentPatientTables.encounter_history }}
+{% endautoescape %}
 </body>
 </html>
