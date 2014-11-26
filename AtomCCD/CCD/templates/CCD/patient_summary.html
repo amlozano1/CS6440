@@ -4,30 +4,38 @@
 
 
 {% block content %}
-    <br><br><br>
+    <br><br>
     <div class="container">
-        <div>
-            <div style="float:left; width: 33%; font-size: larger;">
-                <strong><i class="fa fa-{{ request.session.CurrentPatient.demographics.gender }}"></i> {{ request.session.CurrentPatient.demographics.name.given.0 }} {{ request.session.middle }} {{ request.session.CurrentPatient.demographics.name.family }} </strong><br>
-                {{ request.session.CurrentPatient.demographics.address.street.0 }}<br>
-                {{ request.session.CurrentPatient.demographics.address.city }}, {{ request.session.CurrentPatient.demographics.address.state }}. {{ request.session.CurrentPatient.demographics.address.zip }}<br>
-                {{ request.session.CurrentPatient.demographics.phone.home }} <br>
-                {%  ifnotequal request.session.CurrentPatient.demographics.email None %}
-                    {{ request.session.CurrentPatient.demographics.email }} <br>
-                {% endifnotequal %}
+        <div class="panel">
+            <div class="row">
+                <div class="col-md-4" style="font-size: larger;">
+                    <strong><i class="fa fa-{{ request.session.CurrentPatient.demographics.gender }}"></i> {{ request.session.CurrentPatient.demographics.name.given.0 }} {{ request.session.middle }} {{ request.session.CurrentPatient.demographics.name.family }} </strong><br>
+                    {{ request.session.CurrentPatient.demographics.address.street.0 }}<br>
+                    {{ request.session.CurrentPatient.demographics.address.city }}, {{ request.session.CurrentPatient.demographics.address.state }}. {{ request.session.CurrentPatient.demographics.address.zip }}<br>
+                    {{ request.session.CurrentPatient.demographics.phone.home }} <br>
+                    {%  ifnotequal request.session.CurrentPatient.demographics.email None %}
+                        {{ request.session.CurrentPatient.demographics.email }} <br>
+                    {% endifnotequal %}
+                </div>
+                <div class="col-md-4"">Age {{ request.session.CurrentPatient.demographics.dob|dob_to_age }}, born on {{ request.session.CurrentPatient.demographics.dob }}<br>
+                    {%  ifnotequal request.session.CurrentPatient.demographics.language None %}
+                        Speaks {{ request.session.CurrentPatient.demographics.language | lang}} <br>
+                    {% endifnotequal %}
+                </div>
+                <div class="col-md-4">
+                    <div class="box"
+                    {% for problem in request.session.CurrentPatient.problems %}
+                        {{ problem.name }} <br>
+                        Started: {{ problem.date_range.start }} <br>
+                        <br>
+                    {% endfor %}
+                </div>
             </div>
-            <div style="float:left; width: 33%">Age {{ request.session.CurrentPatient.demographics.dob|dob_to_age }}, born on {{ request.session.CurrentPatient.demographics.dob }}<br>
-                {%  ifnotequal request.session.CurrentPatient.demographics.language None %}
-                    Speaks {{ request.session.CurrentPatient.demographics.language | lang}} <br>
-                {% endifnotequal %}
-            </div>
-            <div style="float:left; width: 33%">
-                Final Value
-            </div>
-        </div>
-    <br><br><br><br><br><br>
-    {% include 'CCD\demographics.html' %}
+         </div>
 
+    <div class="row">
+    {% include 'CCD\demographics.html' %}
+    </div>
     <br><br><br>
         {% include 'CCD\medications.html' %}
     <br><br><br>{{ request.session.CurrentPatient.demographics}}<br><br>
