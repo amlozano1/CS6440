@@ -42,11 +42,11 @@
 
   <div id="demographics" class="panel">
     {{ request.session.CurrentPatient.demographics.name.given.0 }} {{ request.session.CurrentPatient.demographics.name.family }} <br>
-    Age: {{ request.session.CurrentPatient.demographics.dob|dob_to_age }}
-    Date of Birth{{ request.session.CurrentPatient.demographics.dob }}
-    {{ request.session.CurrentPatient.demographics}}
+    Age: {{ request.session.CurrentPatient.demographics.dob|dob_to_age }} <br>
+    Date of Birth: {{ request.session.CurrentPatient.demographics.dob }} <br>
+    <br><br>{{ request.session.CurrentPatient.demographics}}<br>
     </div>
-{{ request.session.CurrentPatient.problems }}
+{{ request.session.CurrentPatient.problems }}<br><br>
 {% autoescape off %}
   {% for key, value in request.session.CurrentPatientTables.items %}
     {{ key }} <br>
