@@ -7,7 +7,7 @@
     <br><br>
     <div class="container">
         <div class="panel">
-            <div class="row">
+            <div class="row" style="height:10em; overflow-y:auto;">
                 <div class="col-md-4" style="font-size: larger;">
                     <strong><i class="fa fa-{{ request.session.CurrentPatient.demographics.gender }}"></i> {{ request.session.CurrentPatient.demographics.name.given.0 }} {{ request.session.middle }} {{ request.session.CurrentPatient.demographics.name.family }} </strong><br>
                     {{ request.session.CurrentPatient.demographics.address.street.0 }}<br>
@@ -17,17 +17,28 @@
                         {{ request.session.CurrentPatient.demographics.email }} <br>
                     {% endifnotequal %}
                 </div>
-                <div class="col-md-4"">Age {{ request.session.CurrentPatient.demographics.dob|dob_to_age }}, born on {{ request.session.CurrentPatient.demographics.dob }}<br>
+                <div class="col-md-4">Age {{ request.session.CurrentPatient.demographics.dob|dob_to_age }}, born on {{ request.session.CurrentPatient.demographics.dob }}<br>
                     {%  ifnotequal request.session.CurrentPatient.demographics.language None %}
                         Speaks {{ request.session.CurrentPatient.demographics.language | lang}} <br>
                     {% endifnotequal %}
                 </div>
-                <div class="col-md-4">
-                    <div class="box"
-                    {% for problem in request.session.CurrentPatient.problems %}
-                        {{ problem.name }} <br>
-                        Started: {{ problem.date_range.start }} <br>
-                        <br>
+                <div class="col-md-4" style="max-height: 10%">
+                    {% for problem in request.session.CurrentPatient.problems reversed %}
+                        {% if forloop.first %}
+                            <strong> Problem(s) </strong>
+                            <table class="table-condensed">
+                        {%  endif %}
+                        <tr>
+                        {%  ifnotequal problem.name None %}
+                            <td><strong><i>{{  problem.name }}</i></strong></td>
+                        {% else %}
+                            <td><strong><i>{{ problem.translation.name }}</i></strong></td>
+                        {% endifnotequal %}
+                        <td>{{ problem.date_range.start }} {%  ifnotequal problem.date_range.end None %} - {{ problem.date_range.end }} {% endifnotequal %}</td>
+                        </tr>
+                        {%  if forloop.last %}
+                        </table>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -36,9 +47,10 @@
     <div class="row">
     {% include 'CCD\demographics.html' %}
     </div>
-    <br><br><br>
-        {% include 'CCD\medications.html' %}
-    <br><br><br>{{ request.session.CurrentPatient.demographics}}<br><br>
+    <div class="row">
+    {% include 'CCD\medications.html' %}
+    </div>
+    <br><br><br>{{ request.session.CurrentPatient.problems }}<br><br>
     {{ request.session.CurrentPatient.problems }}<br><br>
     {% autoescape off %}
       {% for key, value in request.session.CurrentPatientTables.items %}
