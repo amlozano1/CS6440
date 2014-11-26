@@ -39,9 +39,10 @@
 <body>
   {% for key, value in request.session.CurrentPatientTables.items %}
     {{ key }}
-      {% for v in values.0 %}
+      {% for v in values %}
       {{ v }}
       {% endfor %}
   {% endfor %}
+  {{ request.session.CurrentPatientTables.encounter_history }}
 </body>
 </html>

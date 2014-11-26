@@ -92,7 +92,7 @@ def get_tables(xml_root):
     :param xml_root:
     :return:
     """
-    return {codes[section.find("code").attrib['code']]: tostring(section.iter("table").next()) for section in xml_root.iter("section") if list(section.iter("table")) and section.find("code")}
+    return {codes[section.find("code").attrib['code']]: tostring(section.iter("table").next()) for section in xml_root.iter("section") if list(section.iter("table"))}
 
 def remove_namespaces(xml):
     """
