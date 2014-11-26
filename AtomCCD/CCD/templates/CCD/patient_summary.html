@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 {% load staticfiles %}
-
+{% load ccd_extras %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -38,11 +38,22 @@
 </head>
 <body>
 <br><br><br><br><br>
+<div class="container">
+
+  <div id="demographics" class="panel">
+    {{ request.session.CurrentPatient.demographics.name.given.0 }} {{ request.session.CurrentPatient.demographics.name.family }} <br>
+    Age: {{ request.session.CurrentPatient.demographics.dob|dob_to_age }}
+    Date of Birth{{ request.session.CurrentPatient.demographics.dob }}
+    {{ request.session.CurrentPatient.demographics}}
+    </div>
+{{ request.session.CurrentPatient.problems }}
 {% autoescape off %}
   {% for key, value in request.session.CurrentPatientTables.items %}
     {{ key }} <br>
     {{ value }} <br>
   {% endfor %}
 {% endautoescape %}
+
+ </div>
 </body>
 </html>
