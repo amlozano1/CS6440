@@ -50,6 +50,9 @@
     <div class="row">
     {% include 'CCD\medications.html' %}
     </div>
+    <div class="row">
+    {% include 'CCD\encounters.html' %}
+    </div>
     <br><br><br>{{ request.session.CurrentPatient.problems }}<br><br>
     {{ request.session.CurrentPatient.problems }}<br><br>
     {% autoescape off %}
