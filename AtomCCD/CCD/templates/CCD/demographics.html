@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+	    <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Demographics</a>
+	    </h4>
+	</div>
+	<div id="collapseTwo" class="panel-collapse collapse">
+	    <div class="panel-body">
+	    	First Name: {{ request.session.CurrentPatient.demographics.name.given.0 }} <br>
+	        Middle: {{ middle }} <br>
+			Surname: 
+			{{ request.session.CurrentPatient.demographics.name.family }} <br>
+			Preferred Language: {{ request.session.CurrentPatient.demographics.language }}<br>
+			Gender: <i class="fa fa-{{ request.session.CurrentPatient.demographics.gender }}"></i><br>
+			Race: {{ request.session.CurrentPatient.demographics.race }}<br>
+			Ethnicity: {{ request.session.CurrentPatient.demographics.ethnicity }} <br>
+			Date of Birth: {{ request.session.CurrentPatient.demographics.dob }} <br>
+			Address: {{ request.session.CurrentPatient.demographics.address.street.0 }}<br>
+			City: {{ request.session.CurrentPatient.demographics.address.city }}<br>
+			State: {{ request.session.CurrentPatient.demographics.address.state }}<br>
+			Country: {{ request.session.CurrentPatient.demographics.address.country }}<br>
+			Zip: {{ request.session.CurrentPatient.demographics.address.zip }}<br>
+			Phone: {{ request.session.CurrentPatient.demographics.phone.home }}<br>
+			Email: {{ request.session.CurrentPatient.demographics.email }}<br>
+	    </div>
+	</div>
+</div>

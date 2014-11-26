@@ -71,7 +71,8 @@ def view_CCD(request):
             return render(request, 'CCD/patient_summary.html', {'form': form, 'errors': errors, })
     form = PatientForm()
     errors = form.errors or None # form not submitted or it has errors
-    return render(request, 'CCD/patient_summary.html',{'form': form, 'errors': errors, })
+    middle = xml_root.find("recordTarget").find("patientRole").find("patient").find("suffix").text
+    return render(request, 'CCD/patient_summary.html',{'form': form, 'errors': errors, 'middle': middle })
 
 
 def get_tables(xml_root):

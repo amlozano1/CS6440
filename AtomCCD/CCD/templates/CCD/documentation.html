@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+	    <h4 class="panel-title">
+	        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Documentation</a>
+	    </h4>
+	</div>
+	<div id="collapseOne" class="panel-collapse collapse">
+	    <div class="panel-body">       	
+	        Date: {{ request.session.CurrentPatient.document.date }}<br>
+	        Provider: {{ request.session.CurrentPatient.demographics.provider.organization }} <br><!--missing from marla's CCD-->
+	        Function Code: {{ pass }} <br><!--Not sure where to pull this / what it is-->
+	        Address: {{ request.session.CurrentPatient.document.author.address.street.0 }} <br>
+	        City: {{ request.session.CurrentPatient.document.author.address.city }} <br>
+	        State: {{ request.session.CurrentPatient.document.author.address.state}} <br>
+	        Country: {{ request.session.CurrentPatient.document.author.address.country }} <br>
+	        Zip: {{ request.session.CurrentPatient.document.author.address.zip }} <br>
+	        Phone: {{ request.session.CurrentPatient.document.author.phone.work }} <br>
+	        Prefix: {{ request.session.CurrentPatient.document.author.name.prefix }} <br>
+	        First Name: {{ request.session.CurrentPatient.document.author.name.given.0 }} <br>
+	        Last Name: {{ request.session.CurrentPatient.document.author.name.family }} <br>
+	    </div>
+	</div>
+</div>
