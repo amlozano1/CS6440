@@ -1,5 +1,12 @@
-<form enctype="multipart/form-data" action="/CCD/new_patient/" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit" />
-</form>
+{% include 'base.html' %}
+{% load bootstrap3 %}
+<br><br>
+<div class="container">
+    <form role="form" enctype="multipart/form-data" action="/CCD/new_patient/" method="post">
+        <div class="form-group">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+</div>

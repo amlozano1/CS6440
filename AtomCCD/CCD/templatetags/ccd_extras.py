@@ -2,7 +2,8 @@ __author__ = 'Anthony'
 from django import template
 from django.template.defaultfilters import stringfilter
 from datetime import datetime, timedelta, date
-
+from CCD.forms import PatientForm
+from bootstrap3 import forms
 register = template.Library()
 
 @register.filter
@@ -36,3 +37,7 @@ def lang(lang_code):
     elif lang_code == "fr-CN":  # CN? really? Thats China, not canada. They don't speak french in china.
         return "French (CA)"
     return "None"
+
+@register.simple_tag
+def patient_form():
+    return PatientForm()

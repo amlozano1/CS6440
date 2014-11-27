@@ -1,5 +1,6 @@
 {% load staticfiles %}
 {% load ccd_extras %}
+{% load bootstrap3 %}
 {% include 'base.html' %}
 
 
@@ -71,8 +72,7 @@
     <div class="row">
     {% include 'CCD\problems.html' %}
     </div>
-    <br><br><br>{{ request.session.CurrentPatient.problems }}<br><br>
-    {{ request.session.CurrentPatient.problems }}<br><br>
+
     {% autoescape off %}
       {% for key, value in request.session.CurrentPatientTables.items %}
         {{ key }} <br>
