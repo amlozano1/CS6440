@@ -1,0 +1,40 @@
+{% load ccd_extras %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseProblems">Problems</a>
+	</div>
+	<div id="collapseProblems" class="accordion-body collapse panel-body">
+		<div class="accordion-inner">
+            {% for problem in request.session.CurrentPatient.problems reversed %}
+                        {% if forloop.first %}
+                            <strong> Problem(s) </strong>
+                            <table class="table-condensed">
+                        {%  endif %}
+                        <tr>
+                        {%  ifnotequal problem.name None %}
+                            <td><strong><i>{{  problem.name }}</i></strong></td>
+                        {% else %}
+                            <td><strong><i>{{ problem.translation.name }}</i></strong></td>
+                        {% endifnotequal %}
+                        <td>{{ problem.date_range.start }} {%  ifnotequal problem.date_range.end None %} - {{ problem.date_range.end }} {% endifnotequal %}</td>
+                        </tr>
+                        {%  if forloop.last %}
+                        </table>
+                        {% endif %}
+                    {% endfor %}
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseProblemsDetail">Detail Table</a>
+                </div>
+            </div>
+            <div id="collapseProblemsDetail" class="accordion-body collapse panel-body">
+		        <div class="accordion-inner">
+                    {% autoescape off %}
+                        {{ request.session.CurrentPatientTables.Problems }}
+                    {% endautoescape %}
+                </div>
+        </div>
+    </div>
+</div>
+</div>

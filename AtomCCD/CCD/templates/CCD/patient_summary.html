@@ -21,6 +21,18 @@
                     {%  ifnotequal request.session.CurrentPatient.demographics.language None %}
                         Speaks {{ request.session.CurrentPatient.demographics.language | lang}} <br>
                     {% endifnotequal %}
+                    {% for allergy in request.session.CurrentPatient.allergies %}
+                        {% if forloop.first %}
+                            <Strong>Allergies: </Strong><br>
+                            <ul>
+                        {% endif %}
+                            <li>{{ allergy.allergen.name }} </li>
+                        {% if forloop.last %}
+                            </ul>
+                        {% endif %}
+                        {% empty %}
+                            No Allergies
+                    {% endfor %}
                 </div>
                 <div class="col-md-4" style="max-height: 10%">
                     {% for problem in request.session.CurrentPatient.problems reversed %}
@@ -52,6 +64,12 @@
     </div>
     <div class="row">
     {% include 'CCD\encounters.html' %}
+    </div>
+    <div class="row">
+    {% include 'CCD\allergies.html' %}
+    </div>
+    <div class="row">
+    {% include 'CCD\problems.html' %}
     </div>
     <br><br><br>{{ request.session.CurrentPatient.problems }}<br><br>
     {{ request.session.CurrentPatient.problems }}<br><br>
