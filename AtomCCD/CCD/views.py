@@ -124,6 +124,9 @@ def get_stylish_tables(xml):
     tables = soup.find_all('table')
     for table in tables:
         table['class'] = "table table-striped table-bordered table-hover table-responsive"
+    theads = soup.find_all('thead')
+    for thead in theads:
+        thead['data-sortable'] = "true"
     return str(soup)
 
 
