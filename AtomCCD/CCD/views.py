@@ -114,7 +114,9 @@ def get_tables(xml_root):
             if section.find("code"):
                 tables[codes[section.find("code").attrib['code']]] = tostring(section.iter("table").next())
             else:
-                tables[section.find("title").text] = tostring(section.iter("table").next())
+                tables[section.find("title").text.replace(' ', "_").replace(",", "")] = tostring(section.iter("table").next())
+    for key, value in tables.iteritems():
+        print key, value[0:15]
     return tables
 
 def remove_namespaces(xml):
