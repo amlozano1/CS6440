@@ -3,7 +3,7 @@ from django import template
 from django.template.defaultfilters import stringfilter
 from datetime import datetime, timedelta, date
 from CCD.forms import PatientForm
-from bootstrap3 import forms
+import bootstrap3
 register = template.Library()
 
 @register.filter

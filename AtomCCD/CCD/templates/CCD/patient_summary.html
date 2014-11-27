@@ -7,6 +7,7 @@
 {% block content %}
     <br><br>
     <div class="container">
+    {% if request.session.CurrentPatient %}
         <div class="panel">
             <div class="row" style="height:10em; overflow-y:auto;">
                 <div class="col-md-4" style="font-size: larger;">
@@ -75,9 +76,16 @@
 
     {% autoescape off %}
       {% for key, value in request.session.CurrentPatientTables.items %}
-        {{ key }} <br>
-        {{ value }} <br>
+          <div class="row">
+            {{ key }} <br>
+            {{ value }} <br>
+          </div>
       {% endfor %}
     {% endautoescape %}
+
+        {% else %}
+        Please select a patient to view.
+    {% endif %}
     </div>
+
 {% endblock %}
