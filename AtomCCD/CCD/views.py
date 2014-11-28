@@ -10,6 +10,7 @@ from django.conf import settings
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import tostring
 import os
+from bs4 import BeautifulSoup
 
 
 codes = {
@@ -87,7 +88,7 @@ def view_CCD(request):
         if form.is_valid():
             json_chart = parse_ccda(form.cleaned_data['patient'].chart.file.name)
             request.session['CurrentPatient'] = json_chart
-            request.session['CurrentPatientXml'] = open(form.cleaned_data['patient'].chart.file.name).read()
+            request.session['CurrentPatientXml'] = get_stylish_tables(open(form.cleaned_data['patient'].chart.file.name).read())
             xml_root = remove_namespaces(request.session['CurrentPatientXml'])
             request.session['CurrentPatientTables'] = get_tables(xml_root)
             suffix_tag = xml_root.find("recordTarget").find("patientRole").find("patient").find('name').find("suffix")
@@ -115,9 +116,19 @@ def get_tables(xml_root):
                 tables[codes[section.find("code").attrib['code']]] = tostring(section.iter("table").next())
             else:
                 tables[section.find("title").text.replace(' ', "_").replace(",", "")] = tostring(section.iter("table").next())
-    for key, value in tables.iteritems():
-        print key, value[0:15]
     return tables
+
+
+def get_stylish_tables(xml):
+    soup = BeautifulSoup(xml, "xml")
+    tables = soup.find_all('table')
+    for table in tables:
+        table['class'] = "table table-striped table-bordered table-hover table-responsive"
+    theads = soup.find_all('thead')
+    for thead in theads:
+        thead['data-sortable'] = "true"
+    return str(soup)
+
 
 def remove_namespaces(xml):
     """

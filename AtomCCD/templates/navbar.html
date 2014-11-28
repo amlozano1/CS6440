@@ -1,3 +1,4 @@
+{% load ccd_extras %}
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -7,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">AtomCCD</a>
+      <a class="navbar-brand" href= {% url 'CCD:index' %}>AtomCCD</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       {% if user.is_authenticated %}
@@ -15,11 +16,12 @@
        <form enctype="multipart/form-data" action="/CCD/view_CCD/" class="navbar-form navbar-left" role="form" method="post">
          {% csrf_token %}
           <div class="form-group">
-            {{ form }}
+            {% patient_form %}
            </div>
          <div class="form-group">
-          <input type="submit" value="Submit" class="btn btn-success"/>
+          <input type="submit" value="Select" class="btn btn-success btn-xs"/>
          </div>
+       </form>
       </div>
       <div id="navbar-welcome" class="navbar-text navbar-right"> Welcome, {{ user.username }}.  <a href="/accounts/logout">logout</a> </div>
 
